@@ -1,0 +1,28 @@
+<view class='page'>
+    <!--导航条--> 
+  <view class="navbar page__hd"> 
+  <!-- <text bindtap="navbarTap" class="item " data-idx="{{index}}" >精选</text> -->
+    <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item.name}}    </text> 
+  </view> 
+  <view class="page__bd">
+    <scroll-view scroll-y="true">
+
+      <view wx:for="{{indexlist}}" wx:key="userInfoListId" class="item-container" bindtap="showDetail">
+        <navigator url="/pages/index/detail?id={{item.id}}"><image mode="aspectFit" src="https://wx.ahifeng.com/Public/Uploads/{{item.suoluetu}}" class="cover" width="100%"></image></navigator>
+        <view class="desc">
+          <view class="left">
+            <view style="font-size:32rpx;margin:10rpx 0;">{{item.title}}</view>
+            <view style="font-size:24rpx;color:darkgray">{{item.addtime}}</view>
+          </view>
+        </view>
+      </view>
+
+    </scroll-view>
+    <!-- <view wx:for="{{indexlist}}" wx:key="userInfoListId" style="width:300px;margin:0 auto;">
+      <image mode="aspectFit" src="https://wx.ahifeng.com/Public/Uploads/{{item.suoluetu}}" class="cover"></image>
+      <navigator url="/pages/index/index?id={{item.id}}"> {{item.id}}=={{item['title']}}=={{item.suoluetu}}
+      </navigator>
+    </view> -->
+    
+  </view><!--主体-->
+</view>

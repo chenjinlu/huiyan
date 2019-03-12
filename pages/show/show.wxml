@@ -1,0 +1,17 @@
+<!--pages/show/show.wxml-->
+<!-- <text>pages/show/show.wxml</text> -->
+<view>
+  <view>
+    <scroll-view scroll-y="true">
+      <view wx:for="{{showlist}}" wx:key="userInfoListId" class="item-container">
+        <navigator url="/pages/show/detail?id={{item.id}}"><image mode="aspectFit" src="https://wx.ahifeng.com/Public/Uploads/{{item.suoluetu}}" class="cover" mode="widthFix"></image></navigator>
+        <view class="desc">
+          <view class="left">
+            <view style="font-size:32rpx;margin:10rpx 0;">{{item.title}}</view>
+            <view style="font-size:24rpx;color:darkgray">截止日期: {{item.endtime}} | <text style="color:red;">227个作品</text></view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
