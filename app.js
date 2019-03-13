@@ -10,6 +10,30 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        if (res.code) {
+          try {
+            const value = wx.getStorageSync('openid')
+            if (!value) {
+              // 发起网络请求
+              wx.request({
+                url: 'https://wx.ahifeng.com/index.php?s=/Mphuiyan/show/getopenid',
+                data: {
+                  code: res.code
+                },
+                success: function (data) {                 
+                  // console.log(data)
+                  if ( data != '' ){
+                    wx.setStorageSync('openid', data.data.openid)
+                  }                 
+                }
+              })
+            }
+          } catch (e) {
+
+          }          
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
       }
     })
     // 获取用户信息
@@ -36,6 +60,36 @@ App({
   globalData: {
     userInfo: null
   },
+  /**
+   * 显示成功提示框
+   */
+  showSuccess: function (msg, callback) {
+    wx.showToast({
+      title: msg,
+      icon: 'success',
+      success: function () {
+        callback && (setTimeout(function () {
+          callback();
+        }, 1500));
+      }
+    });
+  },
+
+  /**
+   * 显示失败提示框
+   */
+  showError: function (msg, callback) {
+    wx.showModal({
+      title: '友情提示',
+      content: msg,
+      showCancel: false,
+      success: function (res) {
+        callback && (setTimeout(function () {
+          callback();
+        }, 1500));
+      }
+    });
+  }
 })
 
 //多张图片上传

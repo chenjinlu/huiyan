@@ -14,11 +14,7 @@ Page({
   onLoad: function (options) {
     var obj = this
     wx.request({
-      url: 'https://wx.ahifeng.com/mphuiyan/jk/show_show.php', //仅为示例，并非真实的接口地址
-      data: {
-        x: '',
-        y: ''
-      },
+      url: 'https://wx.ahifeng.com/index.php?s=/Mphuiyan/show/itemlist', //仅为示例，并非真实的接口地址
       header: {
         'content-type': 'application/json' // 默认值
       },

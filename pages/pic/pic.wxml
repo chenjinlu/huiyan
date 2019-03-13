@@ -1,0 +1,40 @@
+<!--pages/pic.wxml-->
+<view class="pic-container">
+  <view class="pic-head">
+    <text>{{num}}/{{count}}</text>
+  </view>
+  <view class="pic-body">
+    <swiper bindchange='changepic'>
+      <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" mode="widthFix" bindtap='showImg' data-index="{{index}}" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="pic-foot">
+    <view class="pic-item ">
+      <view class="pic-cell flex-wrp">
+        <view class="avatar flex-item">
+          <image src="{{info.avatarurl}}"></image>
+        </view>
+        <view class="pic-content flex-item">
+          <view class="pic-source">
+            <text class="chatmate">{{info.nickname}}</text>
+            <!-- <text class="lasttime"></text> -->
+          </view>
+          <text class="pic-txt">{{info.addtime}}</text>
+        </view>
+      </view>
+
+    </view>
+    <!-- <view class='pic-item2'>
+      <text>0人喜欢此照片</text>
+    </view> -->
+    <view class='pic-item3'>
+      <view class="scroll-txt">
+        <text>{{info.intro}}</text>
+      </view>
+    </view>
+  </view>
+</view>

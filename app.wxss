@@ -21,6 +21,19 @@ page {
 
 }
 
+.flex-wrp{
+  display: flex;
+}
+.flex-tab{
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: stretch;
+}
+.flex-item{
+  flex-grow: 1;
+  text-align: center;
+}
+
 /* 上传页面样式 */
 page {
     font-size: 11pt;

@@ -10,6 +10,9 @@ Page({
     showUpload: true,
     pics: [],
     userInfo: {},
+    pageId:0,
+    length:0,
+    disabledBtn:false
   },
   // textarea
   note: function (e) {
@@ -21,10 +24,76 @@ Page({
 
   // 表单提交事件
   formSubmit (e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    let params = e.detail.value, that = this;
+    if (that.data.pics.length == 0 || params.intro == ''){
+      app.showError('图片和描述不能为空！');
+      return false;
+    }
+    var openid = wx.getStorageSync('openid');
+    if ( openid == '' ){
+      app.showError('未获取到openid,请重新登录！');
+      return false;
+    }
+    function createImgStr() {
+      let idata = '';
+      for (let i = 0; i < that.data.pics.length; i++) {
+        if (i == that.data.pics.length-1 ){
+          idata += that.data.pics[i];
+        }else{
+          idata += that.data.pics[i] + '|';
+        }        
+      }
+      return idata;
+    }
+    let imgaesStr = createImgStr();
+
+    let formData = {
+      'pageId': that.data.pageId,
+      'images': imgaesStr,
+      'text': params.intro,
+      'avatarUrl': that.data.userInfo.avatarUrl,
+      'nickName': that.data.userInfo.nickName,
+      'openid':openid
+    }
+    // console.log(formData);
+
+    this.setData({ disabledBtn: true });
+    wx.setNavigationBarTitle({ title: '正在提交' });
+
+    wx.request({
+      url: 'https://wx.ahifeng.com/index.php?s=/Mphuiyan/show/addpics', 
+      data: formData,
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      method: 'POST',
+      success: function (res) {
+        let result = res.data;
+        console.log(result);
+        if (result.code === 1) {         
+          setTimeout(() => {
+            wx.showToast({ title: result.msg, icon: 'success', duration: 2000 });
+            wx.setNavigationBarTitle({ title: '上传成功' });
+            that.formReset();
+            setTimeout(function () {
+              wx.navigateBack();
+            }, 1800);
+          }, 0);
+        } else {
+          app.showError(result.msg);
+        }
+      }
+    })
   },
   formReset() {
     console.log('form发生了reset事件')
+    this.setData({
+      uploaderNum: 0,
+      uploaderList: [],
+      pics: [],
+      note:'',
+      length:0
+    })
   },
 
   
@@ -33,26 +102,20 @@ Page({
     var nowList = [],imgList = this.data.pics;//新数据
     var uploaderList = this.data.uploaderList;//原数据
 
-    for (let i = 0; i < uploaderList.length; i++) {
-      if (i == e.currentTarget.dataset.index) {
-        continue;
-      } else {
-        nowList.push(uploaderList[i])
-      }
-    }
+    uploaderList.splice(e.currentTarget.dataset.index, 1);//删预览图
     let delImgName = imgList.splice(e.currentTarget.dataset.index, 1);
     this.delBaseImg(delImgName);
 
     this.setData({
       uploaderNum: this.data.uploaderNum - 1,
-      uploaderList: nowList,
+      uploaderList: uploaderList,
       pics: imgList,
       showUpload: true
     })
   },
   //删除服务器上图片
   delBaseImg:function(url){
-    console.log(url[0])
+    // console.log(url[0])
     wx.request({
       url: 'https://wx.ahifeng.com/Original/Upload/delimg', //仅为示例，并非真实的接口地址
       data: {
@@ -63,7 +126,7 @@ Page({
       },
       method:'POST',
       success: function (res) {
-        
+
       }
     })
   },
@@ -103,8 +166,9 @@ Page({
       }
     })
   },
-  onLoad: function () {
+  onLoad: function (options) {
     var obj = this
+    this.data.pageId = options.id;
     // 查看是否授权
     wx.getSetting({
       success: function (res) {
@@ -112,7 +176,7 @@ Page({
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称
           wx.getUserInfo({
             success: function (res) {
-              // console.log(res.userInfo)
+                // console.log(res)
                 obj.setData({
                   userInfo: res.userInfo
                 })
@@ -136,8 +200,9 @@ Page({
           var imgList = that.data.pics;
           let result = JSON.parse(res.data)
           imgList.push(result.info)
-          console.log(imgList);
-          console.log('uploadImage ' + i + ' success, res is:', res.data)
+          that.data.pics = imgList;
+          // console.log(imgList);
+          // console.log('uploadImage ' + i + ' success, res is:', res.data)
         },
         fail: function ({ errMsg }) {
           console.log('uploadImage ' + i + ' fail, errMsg is', errMsg)

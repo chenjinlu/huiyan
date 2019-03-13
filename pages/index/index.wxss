@@ -183,7 +183,16 @@ swiper image {
  color: #666;
  font-size: 27rpx;
  margin-bottom: 4rpx;
+ position:fixed;
+  z-index:100;
+  width:100%;
+  background-color:#fff;
+  left:0;
+  top:0;
 } 
+.page__bd{
+  margin-top: 85rpx;
+}
 .navbar .item{ 
  position: relative; 
  flex: auto; 

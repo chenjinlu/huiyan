@@ -1,0 +1,109 @@
+/* pages/pic.wxss */
+.pic-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: #000;
+}
+.pic-head{
+  width:100%;
+  text-align:center;
+  padding:40rpx 0 0 0;
+  color:#fff;
+}
+.pic-body{
+  width:100%;
+  text-align:center;
+  margin-top:30rpx;
+  height: 900rpx;
+}
+.pic-foot{
+  width:94%;
+  padding: 20rpx 3%;
+  height: 360rpx;
+  position: absolute;
+  left:0;
+  bottom:0;
+  background-color:rgba(0,0,0,0.6);
+}
+swiper{
+  height: 900rpx;
+  line-height: 900rpx;
+}
+swiper image{
+  width:100%;
+  vertical-align: middle;
+}
+text{
+  color:#fff;
+}
+.pic-item{
+  width: 100%;
+  padding-top: 10rpx;
+  border-bottom:1rpx solid #666;
+}
+.pic-cell{
+  width: 600rpx;
+}
+.pic-item2{
+  border-bottom:1rpx solid #666;
+  padding: 10rpx 0;
+  font-size: 24rpx;
+}
+.pic-item2 text{
+  text-align: left;
+}
+.pic-item3{
+  padding-top: 10rpx;
+}
+.pic-item3 .scroll-txt{
+  height: 220rpx;
+  overflow-y:scroll;
+}
+.pic-item3 text{
+  text-align: left;
+  font-size: 28rpx;
+}
+.pic-item  image{
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+}
+.pic-item .avatar{
+  flex: 1;
+}
+.pic-item .pic-content{
+  flex: 10;
+  text-align: left;
+  margin-left:20rpx;
+}
+.pic-item .pic-content .chat-source{
+  color: #818A8F;
+  font-size: 28rpx;
+  height: 36rpx;
+}
+.pic-item .pic-content .pic-source .chatmate{
+  font-size: 24rpx;
+  color: #fff;
+  text-align: left;
+  float: left;
+}
+.pic-source,.pic-txt{
+  width: 100%;
+}
+.pic-item .pic-content .pic-source .lasttime{
+  flex: 1;
+  font-size: 22rpx;
+  float: right;
+  vertical-align: text-bottom;
+}
+.pic-item .pic-content .pic-txt{
+  display: block;
+  color: #7b7b7b;
+  font-size: 20rpx;
+  line-height: 20rpx;
+  float: left;
+}

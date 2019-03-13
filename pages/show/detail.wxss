@@ -21,6 +21,12 @@
   padding-bottom: 20rpx;
   border-bottom: 1px solid #E5E7ED;
 }
+.rule{
+  margin:20rpx;
+  padding: 30rpx;
+  background-color: #ccc;
+  font-size: 28rpx;
+}
 
 .desc .right {
   display: flex;
@@ -42,6 +48,7 @@ page {
   height: 100%;
   font-size: 32rpx;
   line-height: 1.6;
+  margin-bottom: 100rpx;
 }
 
 .navbar{ 
@@ -71,4 +78,76 @@ page {
  height: 4rpx; 
  background: #FFCC00; 
 } 
+.fixbtn{
+  position: fixed;
+  bottom:20rpx;
+  z-index: 100;
+  left: 10%;
+  width:80%;
+}
+.cell{
+  width: 300rpx;
+  padding: 20rpx 0rpx 20rpx 50rpx;
+  float: left;
+}
+.itemBanner image{
+  width: 100%;
+  border-radius: 10rpx;
+}
+.info image{
+  width: 100rpx;
+  height:100rpx;
+  border-radius: 50rpx;
+  float: left;
+}
+.info text{
+  float: left;
+  height: 50rpx;
+  line-height: 50rpx;
+  margin-left: 20rpx;
+}
 
+.chat-item{
+  width: 300rpx;
+  padding-top: 10rpx;
+}
+.chat-item  image{
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+}
+.chat-item .avatar{
+  flex: 1;
+}
+.chat-item .chat-content{
+  flex: 4;
+  text-align: left;
+  margin-left:10rpx;
+}
+.chat-item .chat-content text{
+  /*display: block;*/
+}
+.chat-item .chat-content .chat-source{
+  color: #818A8F;
+  font-size: 28rpx;
+  height: 36rpx;
+}
+.chat-item .chat-content .chat-source .chatmate{
+  font-size: 24rpx;
+  color: #000000;
+  text-align: left;
+  float: left;
+}
+.chat-item .chat-content .chat-source .lasttime{
+  flex: 1;
+  font-size: 22rpx;
+  float: right;
+  vertical-align: text-bottom;
+}
+.chat-item .chat-content .chat-txt{
+  display: block;
+  color: #7b7b7b;
+  font-size: 20rpx;
+  line-height: 20rpx;
+  float: left;
+}

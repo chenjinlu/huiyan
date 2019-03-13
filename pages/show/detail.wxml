@@ -1,18 +1,70 @@
 <!--pages/show/detail.wxml-->
 <!-- <text>pages/show/detail.wxml</text> -->
-<view class='page'>
+<scroll-view class='page' scroll-y="true">
   <view class='page_hd' style='position:relative'>
-  <image wx:if="{{details[0].suoluetu}}" mode="aspectFit" src="https://wx.ahifeng.com/Public/Uploads/{{details[0].suoluetu}}" class="cover" mode="widthFix"></image>
-  <view style='position:absolute;bottom:50px;left:10px;color:white;font-family:Microsoft Yahei;'>{{details[0].intro}}</view>
+  <image wx:if="{{details.suoluetu}}" mode="aspectFit" src="https://wx.ahifeng.com/Public/Uploads/{{details.suoluetu}}" class="cover" mode="widthFix"></image>
+  <view style='position:absolute;bottom:50px;left:10px;color:white;font-family:Microsoft Yahei;'>{{details.intro}}</view>
   </view>
   <view class='page_bd'>
     <view class="navbar"> 
     <text wx:for="{{showbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="showbarTap">{{item}}      </text> 
     </view>   
   </view>
-  <view class="btn-submit">
-		<!-- <button class="btn-block btn-orange" bindtap="applySubmit">主页</button> -->
-    <button class="btn-block btn-orange" bindtap="applySubmit">上传作品</button>
-    <!-- <navigator class="btn-block btn-orange" url='' >上传作品</navigator> -->
-	</view>
+  <view>
+    <!--最新 -->
+    <view hidden="{{currentTab==0 ? '' : true}}">
+
+      <view class="cell" wx:for="{{newlist}}" wx:key="unique" >
+        <navigator url="/pages/pic/pic?id={{item.id}}" hover-class="navigator-hover">
+          <view class="itemBanner"><image src="{{item.pic[0]}}" mode="widthFix" lazy-load="true"></image></view>
+        </navigator>
+        <view class="chat-item flex-wrp">
+          <view class="avatar flex-item">
+            <image src="{{item.avatarurl}}"></image>
+          </view>
+          <view class="chat-content flex-item">
+            <view class="chat-source">
+              <text class="chatmate">{{item.nickname}}</text>
+              <!-- <text class="lasttime"></text> -->
+            </view>
+            <text class="chat-txt">快来看看~</text>
+          </view>
+        </view>
+      </view>
+
+    </view>
+
+    <!--最热 -->
+    <view hidden="{{currentTab==1 ? '' : true}}">
+
+      <view class="cell" wx:for="{{hotlist}}" wx:key="unique" >
+        <navigator url="/pages/pic/pic?id={{item.id}}" hover-class="navigator-hover">
+          <view class="itemBanner"><image src="{{item.pic[0]}}" mode="widthFix" lazy-load="true"></image></view>
+        </navigator>
+        <view class="chat-item flex-wrp">
+          <view class="avatar flex-item">
+            <image src="{{item.avatarurl}}"></image>
+          </view>
+          <view class="chat-content flex-item">
+            <view class="chat-source">
+              <text class="chatmate">{{item.nickname}}</text>
+              <!-- <text class="lasttime"></text> -->
+            </view>
+            <text class="chat-txt">快来看看~</text>
+          </view>
+        </view>
+      </view>
+
+    </view>
+    <view hidden="{{currentTab==2 ? '' : true}}">
+      <view class="rule">
+        <text>{{details.rule}}</text>
+      </view>
+    </view>
+  </view>  
+</scroll-view>
+<view class="btn-submit">
+  <!-- <button class="btn-block btn-orange" bindtap="applySubmit">主页</button> -->
+  <button class="btn-block btn-orange fixbtn" type="primary" disabled="{{disableBtn}}" bindtap="applySubmit">上传作品</button>
+  <!-- <navigator class="btn-block btn-orange" url='' >上传作品</navigator> -->
 </view>

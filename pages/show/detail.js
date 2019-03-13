@@ -7,18 +7,19 @@ Page({
   data: {
     showbar: ['最新', '最热', '规则'],
     currentTab: 0,
+    pageId:0,
+    disableBtn:false
   },
 
   /**
    * 页面导航
    */
   showbarTap: function (e) {
+    let idx = e.currentTarget.dataset.idx;
     this.setData({
-      currentTab: e.currentTarget.dataset.idx,
-      daohang: e.currentTarget.dataset.idx
-
+      currentTab: idx,
+      daohang: idx
     })
-    this.onLoad()
   },
 
   /**
@@ -26,25 +27,7 @@ Page({
    */
   onLoad: function (options) {
     var obj = this
-    wx.request({
-      url: 'https://wx.ahifeng.com/mphuiyan/jk/show_show.php', //仅为示例，并非真实的接口地址
-      data: {
-        id: options.id
-        //y: ''
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        obj.setData({
-          details: res.data,
-        })
-        wx.setNavigationBarTitle({
-          title: res.data[0].title
-        })
-      }
-    })
-
+    this.data.pageId = options.id;
     
   },
 
@@ -59,7 +42,34 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var obj = this
+    wx.request({
+      url: 'https://wx.ahifeng.com/index.php?s=/Mphuiyan/show/iteminfo', //仅为示例，并非真实的接口地址
+      data: {
+        id: this.data.pageId
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        var disabled = false;
+        if (res.data.code == 0) {
+          disabled = true;
+        }
+        obj.setData({
+          details: res.data.item,
+          newlist: res.data.newlist,
+          hotlist: res.data.hotlist,
+          disableBtn: disabled
+        })
+        wx.setNavigationBarTitle({
+          title: res.data.item.title
+        })
+      }
+    }) 
+  },
+  showPic:function(){
+    
   },
 
   /**
@@ -101,7 +111,7 @@ Page({
    */
   applySubmit: function () {
     wx.navigateTo({
-      url: '../upload/upload'
+      url: '../upload/upload?id='+this.data.pageId
     })
   }
 

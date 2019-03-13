@@ -29,7 +29,7 @@
     </block>
   </view>
   <view class="btn-area">
-      <button class='ui_btn ui_btn_primary ' form-type='submit'>提交</button>
+      <button class='ui_btn ui_btn_primary ' disabled="{{disabledBtn}}" form-type='submit'>提交</button>
       <button class='ui_btn ui_btn_warn' form-type="reset">重置</button>
   </view>
 </form>
